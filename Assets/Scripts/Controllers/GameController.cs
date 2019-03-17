@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Scripts.Level;
 
 namespace Scripts.Controllers
 {
@@ -45,12 +46,11 @@ namespace Scripts.Controllers
 
         public void GameOver()
         {
-            PauseGame(true);
             extraFrogs--;
             if (extraFrogs < 0)
                 EndGame();
             else
-                RestartLevel();
+                StartCoroutine(FindObjectOfType<Player>().ResetPosition());
         }
 
         private void PauseGame(bool b)

@@ -72,7 +72,7 @@ namespace Scripts.Level
             isMoving = false;
         }
 
-        private IEnumerator ResetPosition()
+        public IEnumerator ResetPosition()
         {
             while (isMoving)
                 yield return new WaitForEndOfFrame();

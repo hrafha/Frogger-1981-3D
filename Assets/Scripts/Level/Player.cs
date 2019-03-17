@@ -14,12 +14,14 @@ namespace Scripts.Level
         private bool isMoving;
 
         private GameController gameController;
+        private LevelController levelController;
 
         private Vector3 moveVec;
 
         private void Start()
         {
             gameController = FindObjectOfType<GameController>();
+            levelController = FindObjectOfType<LevelController>();
         }
 
         private void Update()
@@ -65,6 +67,19 @@ namespace Scripts.Level
             transform.position = moveVec;
             yield return new WaitForSeconds(moveDelay);
             isMoving = false;
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.GetComponent<HomeSpot>() && transform.position == other.transform.position)
+            {
+                other.GetComponent<HomeSpot>().FillSpot(true);
+                levelController.CheckSpots();
+            }
+            else if (other.CompareTag("Obstacle"))
+            {
+                gameController.GameOver();
+            }
         }
 
     }

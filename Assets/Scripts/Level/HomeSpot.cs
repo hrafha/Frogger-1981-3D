@@ -13,7 +13,8 @@ namespace Scripts.Level
         {
             filled = isFilled;
             frog.SetActive(isFilled);
-            GetComponent<Collider>().isTrigger = !isFilled;
+            if (GetComponent<MeshRenderer>())
+                GetComponent<MeshRenderer>().enabled = !isFilled;
         }
 
     }

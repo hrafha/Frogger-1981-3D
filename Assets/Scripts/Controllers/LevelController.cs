@@ -28,10 +28,14 @@ namespace Scripts.Controllers
             if (AllSpotsAreFilled())
             {
                 gameController.FinishLevel();
+                SetSpotsStates();
                 // Implement "LoadNewLevel()" here.
             }
             else
+            {
                 GetSpotsStates();
+                gameController.RestartLevel();
+            }
         }
 
         private bool AllSpotsAreFilled()

@@ -78,6 +78,10 @@ namespace Scripts.Controllers
         {
             ResetExtraFrogs();
             RestartLevel();
+
+            // Clean out spots
+            for (int i = 0; i < homeSpots.Length; i++)
+                homeSpots[i] = false;
         }
 
         //DontDestroyOnLoad

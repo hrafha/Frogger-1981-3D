@@ -818,7 +818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultFrogs: 5
-  defaultTime: 5
+  defaultTime: 30
 --- !u!4 &703034096
 Transform:
   m_ObjectHideFlags: 0
@@ -955,7 +955,7 @@ Transform:
   - {fileID: 50394}
   - {fileID: 2134499955}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1005627132
 GameObject:
@@ -1475,6 +1475,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1929450950}
+  - component: {fileID: 1929450952}
   - component: {fileID: 1929450949}
   - component: {fileID: 1929450948}
   - component: {fileID: 1929450947}
@@ -1550,7 +1551,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1929450951
 Rigidbody:
@@ -1565,8 +1566,21 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &1929450952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1929450946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868341dd84f0f094884dca67af5f0ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepRange: 1
+  moveDelay: 0.2
 --- !u!1 &1969753656
 GameObject:
   m_ObjectHideFlags: 0

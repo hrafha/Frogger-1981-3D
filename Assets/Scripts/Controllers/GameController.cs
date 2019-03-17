@@ -13,6 +13,8 @@ namespace Scripts.Controllers
         public int extraFrogs { get; private set; }
         public float timeLeft { get; private set; }
 
+        public static bool[] homeSpots = new bool[5];
+
         private void Start()
         {
             ResetExtraFrogs();
@@ -70,6 +72,12 @@ namespace Scripts.Controllers
             ResetTimer();
             PauseGame(false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        public void FinishLevel()
+        {
+            ResetExtraFrogs();
+            RestartLevel();
         }
 
         //DontDestroyOnLoad

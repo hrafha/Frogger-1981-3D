@@ -31,7 +31,7 @@ namespace Scripts.Controllers
             extraFrogs = defaultFrogs;
         }
 
-        private void ResetTimer()
+        public void ResetTimer()
         {
             timeLeft = defaultTime;
         }

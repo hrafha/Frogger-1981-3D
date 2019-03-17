@@ -17,11 +17,14 @@ namespace Scripts.Level
         private LevelController levelController;
 
         private Vector3 moveVec;
+        private Vector3 startPosition;
 
         private void Start()
         {
             gameController = FindObjectOfType<GameController>();
             levelController = FindObjectOfType<LevelController>();
+
+            startPosition = transform.position;
         }
 
         private void Update()
@@ -69,10 +72,19 @@ namespace Scripts.Level
             isMoving = false;
         }
 
+        private IEnumerator ResetPosition()
+        {
+            while (isMoving)
+                yield return new WaitForEndOfFrame();
+            transform.position = startPosition;
+            gameController.ResetTimer();
+        }
+
         private void OnTriggerStay(Collider other)
         {
             if (other.GetComponent<HomeSpot>() && transform.position == other.transform.position)
             {
+                StartCoroutine(ResetPosition());
                 other.GetComponent<HomeSpot>().FillSpot(true);
                 levelController.CheckSpots();
             }

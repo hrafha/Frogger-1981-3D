@@ -238,6 +238,7 @@
     <Compile Include="Assets\Scripts\Level\ModelSpawner.cs" />
     <Compile Include="Assets\Scripts\Level\ObjMove.cs" />
     <Compile Include="Assets\Scripts\Level\Player.cs" />
+    <Compile Include="Assets\Scripts\Level\Turtle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

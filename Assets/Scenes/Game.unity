@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   models:
-  - {fileID: 1804887542879032, guid: 7bd87afe6ae7d484eaca657b9c9a4f7d, type: 2}
+  - {fileID: 1593840014258452, guid: 6e6d922492f5e1e4991c59588e9b6cfc, type: 2}
   - {fileID: 1922166240886286, guid: 4465889fc6607154dbe63526e4bceac0, type: 2}
   - {fileID: 1782995576048458, guid: 1697918e64e48f54084383b79bd14f9a, type: 2}
 --- !u!4 &263252329 stripped

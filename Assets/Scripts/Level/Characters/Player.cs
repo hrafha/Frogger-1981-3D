@@ -113,7 +113,6 @@ namespace Scripts.Level
             if (other.CompareTag("Obstacle") && !delivered)
             {
                 hitted = true;
-                StartCoroutine(ResetPosition());
                 gameController.GameOver();
             }
             else if (other.GetComponent<HomeSpot>() && !hitted)

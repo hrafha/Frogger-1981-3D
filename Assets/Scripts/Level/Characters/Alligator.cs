@@ -21,5 +21,12 @@ namespace Scripts.Level
             Destroy(gameObject, moveDelay);
         }
 
+        private void OnTriggerStay(Collider other)
+        {
+            // Self destroy on a filled home spot
+            if (other.GetComponent<HomeSpot>().filled)
+                Destroy(gameObject);
+        }
+
     }
 }

@@ -759,7 +759,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -932,7 +932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0f9f0696155084fb192f3fd64028eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: -3
+  baseSpeed: -2
 --- !u!114 &114175732903478250
 MonoBehaviour:
   m_ObjectHideFlags: 1

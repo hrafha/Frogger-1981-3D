@@ -234,11 +234,12 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\LevelController.cs" />
+    <Compile Include="Assets\Scripts\Level\Characters\Alligator.cs" />
+    <Compile Include="Assets\Scripts\Level\Characters\Player.cs" />
+    <Compile Include="Assets\Scripts\Level\Characters\Turtle.cs" />
     <Compile Include="Assets\Scripts\Level\HomeSpot.cs" />
     <Compile Include="Assets\Scripts\Level\ModelSpawner.cs" />
     <Compile Include="Assets\Scripts\Level\ObjMove.cs" />
-    <Compile Include="Assets\Scripts\Level\Player.cs" />
-    <Compile Include="Assets\Scripts\Level\Turtle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 namespace Scripts.Level
 {
@@ -20,6 +21,15 @@ namespace Scripts.Level
 
         private void Start()
         {
+            SetSettings();
+
+            // Will submerge
+            if (speed > 0)
+                StartCoroutine(SubmergeUpdate());
+        }
+
+        private void SetSettings()
+        {
             if (timeToUp <= 0)
                 timeToUp = 0.5f;
             if (timeToDown <= 0)
@@ -28,12 +38,7 @@ namespace Scripts.Level
             submerseHeight = -0.5f;
         }
 
-        private void Update()
-        {
-            SubmergeUpdate();
-        }
-
-        private void SubmergeUpdate()
+        private IEnumerator SubmergeUpdate()
         {
             timer += Time.deltaTime;
             if (!submerse)
@@ -58,6 +63,8 @@ namespace Scripts.Level
                     submerse = false;
                 }
             }
+            yield return new WaitForSeconds(Time.deltaTime);
+            StartCoroutine(SubmergeUpdate());
         }
 
     }

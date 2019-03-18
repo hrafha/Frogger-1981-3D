@@ -12,15 +12,21 @@ namespace Scripts.Level
         [SerializeField] private float moveDelay;
 
         private bool isMoving;
+        private bool hitted;
+        private bool delivered;
 
+        private Rigidbody rigbd;
         private GameController gameController;
         private LevelController levelController;
 
         private Vector3 moveVec;
         private Vector3 startPosition;
 
+        private GameObject riverPlatform;
+
         private void Start()
         {
+            rigbd = GetComponent<Rigidbody>();
             gameController = FindObjectOfType<GameController>();
             levelController = FindObjectOfType<LevelController>();
 
@@ -29,10 +35,12 @@ namespace Scripts.Level
 
         private void Update()
         {
-            if(!isMoving)
+            if (!isMoving)
                 UpdateMoveVec();
             if (CanMove())
                 StartCoroutine(Move());
+
+            MoveOnRiverPlatform();
         }
 
         private void UpdateMoveVec()
@@ -62,36 +70,71 @@ namespace Scripts.Level
         private IEnumerator Move()
         {
             isMoving = true;
+            transform.parent = null;
             while (transform.position != moveVec)
             {
                 transform.position = Vector3.MoveTowards(transform.position, moveVec, 0.25f);
                 yield return new WaitForEndOfFrame();
             }
-            transform.position = moveVec;
             yield return new WaitForSeconds(moveDelay);
+            //transform.position = moveVec;
             isMoving = false;
+        }
+
+        private void MoveOnRiverPlatform()
+        {
+            if (riverPlatform)
+                transform.parent = riverPlatform.transform;
+            else
+                transform.parent = null;
         }
 
         public IEnumerator ResetPosition()
         {
+            transform.parent = null;
             while (isMoving)
                 yield return new WaitForEndOfFrame();
             transform.position = startPosition;
             gameController.ResetTimer();
+            isMoving = true;
+            yield return new WaitForSeconds(moveDelay);
+            isMoving = false;
+            hitted = false;
+            delivered = false;
         }
 
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<HomeSpot>() && transform.position == other.transform.position)
+            if (other.gameObject.CompareTag("Platform"))
             {
+                riverPlatform = other.gameObject;
+                rigbd.velocity = Vector3.zero;
+            }
+            if (other.CompareTag("Obstacle") && !delivered)
+            {
+                hitted = true;
+                StartCoroutine(ResetPosition());
+                gameController.GameOver();
+            }
+            else if (other.GetComponent<HomeSpot>() && !hitted)
+            {
+                delivered = true;
+                rigbd.velocity = Vector3.zero;
                 StartCoroutine(ResetPosition());
                 other.GetComponent<HomeSpot>().FillSpot(true);
                 levelController.CheckSpots();
             }
-            else if (other.CompareTag("Obstacle"))
-            {
-                gameController.GameOver();
-            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject == riverPlatform)
+                riverPlatform = null;
+        }
+
+        private void OnBecameInvisible()
+        {
+            gameController.GameOver();
         }
 
     }

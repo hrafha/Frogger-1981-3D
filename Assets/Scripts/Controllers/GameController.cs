@@ -25,6 +25,7 @@ namespace Scripts.Controllers
         private void Update()
         {
             TimerUpdate();
+            //Debug.Log(extraFrogs);
         }
 
         private void ResetExtraFrogs()

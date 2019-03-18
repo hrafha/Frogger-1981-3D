@@ -234,6 +234,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\LevelController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\ScoreController.cs" />
     <Compile Include="Assets\Scripts\Level\Characters\Alligator.cs" />
     <Compile Include="Assets\Scripts\Level\Characters\Player.cs" />
     <Compile Include="Assets\Scripts\Level\Characters\Turtle.cs" />

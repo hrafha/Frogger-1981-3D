@@ -18,6 +18,7 @@ namespace Scripts.Level
         private Rigidbody rigbd;
         private GameController gameController;
         private LevelController levelController;
+        private ScoreController scoreController;
 
         private Vector3 moveVec;
         private Vector3 startPosition;
@@ -29,6 +30,7 @@ namespace Scripts.Level
             rigbd = GetComponent<Rigidbody>();
             gameController = FindObjectOfType<GameController>();
             levelController = FindObjectOfType<LevelController>();
+            scoreController = FindObjectOfType<ScoreController>();
 
             startPosition = transform.position;
         }
@@ -79,6 +81,7 @@ namespace Scripts.Level
             yield return new WaitForSeconds(moveDelay);
             //transform.position = moveVec;
             isMoving = false;
+            scoreController.CheckScoreLine(this);
         }
 
         private void MoveOnRiverPlatform()
@@ -101,6 +104,7 @@ namespace Scripts.Level
             isMoving = false;
             hitted = false;
             delivered = false;
+            ScoreController.ResetScoreLines();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -121,6 +125,8 @@ namespace Scripts.Level
                 rigbd.velocity = Vector3.zero;
                 StartCoroutine(ResetPosition());
                 other.GetComponent<HomeSpot>().FillSpot(true);
+                ScoreController.IncreaseScore(ScoreController.ScoreType.Home);
+                ScoreController.IncreaseScore(ScoreController.ScoreType.Time);
                 levelController.CheckSpots();
             }
         }

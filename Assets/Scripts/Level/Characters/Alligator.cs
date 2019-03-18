@@ -24,7 +24,7 @@ namespace Scripts.Level
         private void OnTriggerStay(Collider other)
         {
             // Self destroy on a filled home spot
-            if (other.GetComponent<HomeSpot>().filled)
+            if (other.GetComponent<HomeSpot>() && other.GetComponent<HomeSpot>().filled)
                 Destroy(gameObject);
         }
 

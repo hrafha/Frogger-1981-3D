@@ -31,6 +31,7 @@ namespace Scripts.Controllers
         {
             if (AllSpotsAreFilled())
             {
+                ScoreController.IncreaseScore(ScoreController.ScoreType.FiveHome);
                 gameController.FinishLevel();
                 SetSpotsStates();
                 // Implement "LoadNewLevel()" here.

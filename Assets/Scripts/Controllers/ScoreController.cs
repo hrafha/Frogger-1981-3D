@@ -17,9 +17,9 @@ namespace Scripts.Controllers
         [SerializeField] private int[] scoreValues = new int[4];
 
         private float[] linesPositions;
-        public static bool[] linesReacheds;
 
-        public static int[] scoreTable;
+        public static bool[] linesReacheds { get; private set; }
+        public static int[] scoreTable { get; private set; }
         public static int score { get; private set; }
 
         private void Start()
@@ -29,12 +29,7 @@ namespace Scripts.Controllers
 
             InitScoreTable();
         }
-
-        private void Update()
-        {
-            print(score);
-        }
-
+        
         private void GetLinesPositions()
         {
             linesPositions = new float[linesAmount];

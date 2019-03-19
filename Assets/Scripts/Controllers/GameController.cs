@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scripts.Level;
+using Scripts.HUD;
 
 namespace Scripts.Controllers
 {
@@ -9,7 +10,7 @@ namespace Scripts.Controllers
 
         [Header("Game Settings")]
         [SerializeField] private int defaultFrogs;
-        [SerializeField] private float defaultTime;
+        [SerializeField] public float defaultTime;
 
         public int extraFrogs { get; private set; }
         public float timeLeft { get; private set; }
@@ -25,7 +26,6 @@ namespace Scripts.Controllers
         private void Update()
         {
             TimerUpdate();
-            //Debug.Log(extraFrogs);
         }
 
         private void ResetExtraFrogs()
@@ -65,7 +65,7 @@ namespace Scripts.Controllers
         private void EndGame()
         {
             PauseGame(true);
-            // Implement "ShowGameOverScreen()" here.
+            FindObjectOfType<GameHUD>().ShowGameOverMenu();
         }
 
         public void RestartLevel()

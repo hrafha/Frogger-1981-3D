@@ -43,6 +43,9 @@ namespace Scripts.Level
                 StartCoroutine(Move());
 
             MoveOnRiverPlatform();
+
+            if (PlayerMovedOutScreen())
+                gameController.GameOver();
         }
 
         private void UpdateMoveVec()
@@ -92,6 +95,14 @@ namespace Scripts.Level
                 transform.parent = null;
         }
 
+        private bool PlayerMovedOutScreen()
+        {
+            return transform.position.x > 15f
+                || transform.position.x < -15f
+                || transform.position.z < -14.5f
+                || transform.position.z > -0.5f;
+        }
+
         public IEnumerator ResetPosition()
         {
             transform.parent = null;
@@ -135,11 +146,6 @@ namespace Scripts.Level
         {
             if (other.gameObject == riverPlatform)
                 riverPlatform = null;
-        }
-
-        private void OnBecameInvisible()
-        {
-            gameController.GameOver();
         }
 
     }

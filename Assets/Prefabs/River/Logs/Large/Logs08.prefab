@@ -11,19 +11,20 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1847589058795224}
   m_IsPrefabParent: 1
---- !u!1 &1796526303491880
+--- !u!1 &1168806219269764
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4601264081151160}
-  - component: {fileID: 33676903001297850}
-  - component: {fileID: 65045478894571700}
-  - component: {fileID: 23286217538093996}
+  - component: {fileID: 4102056881774306}
+  - component: {fileID: 33020642847887354}
+  - component: {fileID: 65218051795578878}
+  - component: {fileID: 65550514872394750}
+  - component: {fileID: 23561396478638284}
   m_Layer: 0
-  m_Name: Object (1)
+  m_Name: Large
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,11 +39,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4020402282984060}
   - component: {fileID: 114559639728400038}
-  - component: {fileID: 65679160715215660}
   - component: {fileID: 54547178949524446}
   m_Layer: 0
   m_Name: Logs08
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,16 +57,16 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: -7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4601264081151160}
+  - {fileID: 4102056881774306}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4601264081151160
+--- !u!4 &4102056881774306
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1796526303491880}
+  m_GameObject: {fileID: 1168806219269764}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -9, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 1, z: 0.79999995}
@@ -74,12 +74,12 @@ Transform:
   m_Father: {fileID: 4020402282984060}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23286217538093996
+--- !u!23 &23561396478638284
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1796526303491880}
+  m_GameObject: {fileID: 1168806219269764}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -108,12 +108,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33676903001297850
+--- !u!33 &33020642847887354
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1796526303491880}
+  m_GameObject: {fileID: 1168806219269764}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54547178949524446
 Rigidbody:
@@ -130,30 +130,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 0
---- !u!65 &65045478894571700
+--- !u!65 &65218051795578878
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1796526303491880}
+  m_GameObject: {fileID: 1168806219269764}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65679160715215660
+--- !u!65 &65550514872394750
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1847589058795224}
+  m_GameObject: {fileID: 1168806219269764}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 1, z: 1}
-  m_Center: {x: -9, y: 0.5, z: 0}
+  m_Size: {x: 1, y: 1, z: 0.75}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &114559639728400038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -165,4 +165,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0f9f0696155084fb192f3fd64028eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 4
+  baseSpeed: 5

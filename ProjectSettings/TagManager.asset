@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Platform
+  - HomeSpot
   layers:
   - Default
   - TransparentFX

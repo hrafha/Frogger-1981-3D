@@ -13,7 +13,6 @@ namespace Scripts.Level
 
         private bool isMoving;
         private bool hitted;
-        private bool delivered;
 
         private Rigidbody rigbd;
         private GameController gameController;
@@ -39,10 +38,9 @@ namespace Scripts.Level
         {
             if (!isMoving)
                 UpdateMoveVec();
+
             if (CanMove())
                 StartCoroutine(Move());
-
-            MoveOnRiverPlatform();
 
             if (PlayerMovedOutScreen())
                 gameController.GameOver();
@@ -75,24 +73,64 @@ namespace Scripts.Level
         private IEnumerator Move()
         {
             isMoving = true;
-            transform.parent = null;
+            CheckCollisions();
             while (transform.position != moveVec)
             {
+                yield return new WaitForFixedUpdate();
                 transform.position = Vector3.MoveTowards(transform.position, moveVec, 0.25f);
-                yield return new WaitForEndOfFrame();
             }
             yield return new WaitForSeconds(moveDelay);
-            //transform.position = moveVec;
             isMoving = false;
-            scoreController.CheckScoreLine(this);
         }
 
-        private void MoveOnRiverPlatform()
+        private void CheckCollisions()
         {
-            if (riverPlatform)
-                transform.parent = riverPlatform.transform;
+            bool collide = false;
+            Collider[] collisions = Physics.OverlapBox(moveVec, transform.localScale / 2f);
+            foreach (Collider collider in collisions)
+            {
+                if (collider.isTrigger)
+                {
+                    Debug.Log(collider.tag);
+                    collide = true;
+                    CheckOtherCollider(collider);
+                    break;
+                }
+            }
+            if (collide == false)
+                riverPlatform = null;
+        }
+
+        private void CheckOtherCollider(Collider other)
+        {
+            if (other.CompareTag("Platform"))
+            {
+                if (riverPlatform != other.gameObject)
+                    riverPlatform = other.gameObject;
+                rigbd.velocity = GetRiverPlatformRigidbody().velocity;
+            }
+            if (other.GetComponent<HomeSpot>())
+            {
+                StartCoroutine(ResetPosition());
+                if (!other.GetComponent<HomeSpot>().filled)
+                {
+                    rigbd.velocity = Vector3.zero;
+                    other.GetComponent<HomeSpot>().FillSpot(true);
+                    ScoreController.IncreaseScore(ScoreController.ScoreType.Home);
+                    ScoreController.IncreaseScore(ScoreController.ScoreType.Time);
+                    levelController.CheckSpots();
+                }
+            }
+        }
+
+        private Rigidbody GetRiverPlatformRigidbody()
+        {
+            if (riverPlatform.GetComponentInParent<Rigidbody>())
+                return riverPlatform.GetComponentInParent<Rigidbody>();
+            else if (riverPlatform.GetComponent<Rigidbody>())
+                return riverPlatform.GetComponent<Rigidbody>();
             else
-                transform.parent = null;
+                return null;
         }
 
         private bool PlayerMovedOutScreen()
@@ -105,7 +143,7 @@ namespace Scripts.Level
 
         public IEnumerator ResetPosition()
         {
-            transform.parent = null;
+            rigbd.velocity = Vector3.zero;
             while (isMoving)
                 yield return new WaitForEndOfFrame();
             transform.position = startPosition;
@@ -114,38 +152,16 @@ namespace Scripts.Level
             yield return new WaitForSeconds(moveDelay);
             isMoving = false;
             hitted = false;
-            delivered = false;
             ScoreController.ResetScoreLines();
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Platform"))
-            {
-                riverPlatform = other.gameObject;
-                rigbd.velocity = Vector3.zero;
-            }
-            if (other.CompareTag("Obstacle") && !delivered)
+            if (other.CompareTag("Obstacle") && !hitted)
             {
                 hitted = true;
                 gameController.GameOver();
             }
-            else if (other.GetComponent<HomeSpot>() && !hitted)
-            {
-                delivered = true;
-                rigbd.velocity = Vector3.zero;
-                StartCoroutine(ResetPosition());
-                other.GetComponent<HomeSpot>().FillSpot(true);
-                ScoreController.IncreaseScore(ScoreController.ScoreType.Home);
-                ScoreController.IncreaseScore(ScoreController.ScoreType.Time);
-                levelController.CheckSpots();
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.gameObject == riverPlatform)
-                riverPlatform = null;
         }
 
     }

@@ -196,7 +196,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4810092878351958}
   - component: {fileID: 114115734663915198}
-  - component: {fileID: 65185055983135892}
   - component: {fileID: 54373535535926064}
   m_Layer: 0
   m_Name: Turtles05
@@ -775,19 +774,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
---- !u!65 &65185055983135892
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1565942184403384}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 25, y: 1, z: 1}
+  m_Size: {x: 2.5, y: 1, z: 0.75}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!65 &65238089416202050
 BoxCollider:
@@ -835,7 +822,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 1, z: 1}
+  m_Size: {x: 2.5, y: 1, z: 0.75}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!65 &65492001620597838
 BoxCollider:
@@ -883,7 +870,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 1, z: 1}
+  m_Size: {x: 2.5, y: 1, z: 0.75}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!65 &65822759293565128
 BoxCollider:
@@ -919,7 +906,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 1, z: 1}
+  m_Size: {x: 2.5, y: 1, z: 0.75}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &114115734663915198
 MonoBehaviour:

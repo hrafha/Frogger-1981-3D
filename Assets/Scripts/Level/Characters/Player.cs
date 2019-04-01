@@ -8,8 +8,7 @@ namespace Scripts.Level
     {
 
         [Header("Movement Settings")]
-        [SerializeField] private float stepRange;
-        [SerializeField] private float moveDelay;
+        [SerializeField] [Range(0.1f, 0.2f)] private float moveDelay;
 
         private bool isMoving;
         private bool hitted;
@@ -39,7 +38,7 @@ namespace Scripts.Level
             if (!isMoving)
                 UpdateMoveVec();
 
-            if (CanMove())
+            if (CanMove() && (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0))
                 StartCoroutine(Move());
 
             if (PlayerMovedOutScreen())
@@ -50,16 +49,14 @@ namespace Scripts.Level
         {
             // Moves prioritizing horizontal 
             if (Input.GetAxisRaw("Horizontal") != 0)
-                moveVec = new Vector3(Input.GetAxisRaw("Horizontal") * stepRange, 0, 0) + transform.position;
+                moveVec = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) + transform.position;
             else if (Input.GetAxisRaw("Vertical") != 0)
-                moveVec = new Vector3(0, 0, Input.GetAxisRaw("Vertical") * stepRange) + transform.position;
+                moveVec = new Vector3(0, 0, Input.GetAxisRaw("Vertical")) + transform.position;
         }
 
         private bool CanMove()
         {
-            bool pressingKey = (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0);
-
-            return pressingKey && !isMoving && ValidMovement();
+            return !isMoving && ValidMovement();
         }
 
         private bool ValidMovement()
@@ -76,6 +73,8 @@ namespace Scripts.Level
             CheckCollisions();
             while (transform.position != moveVec)
             {
+                if (riverPlatform)
+                    moveVec += GetRiverPlatformRigidbody().velocity * Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
                 transform.position = Vector3.MoveTowards(transform.position, moveVec, 0.25f);
             }
@@ -91,7 +90,6 @@ namespace Scripts.Level
             {
                 if (collider.isTrigger)
                 {
-                    Debug.Log(collider.tag);
                     collide = true;
                     CheckOtherCollider(collider);
                     break;

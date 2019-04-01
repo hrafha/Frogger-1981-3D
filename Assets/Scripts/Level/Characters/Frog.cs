@@ -7,7 +7,7 @@ namespace Scripts.Level
     {
 
         [Header("Movement Settings")]
-        [SerializeField] [Range(0.1f, 0.2f)] protected float moveDelay;
+        [SerializeField] [Range(0.1f, 0.2f)] protected float moveDelay = 0.15f;
 
         protected bool isMoving;
 

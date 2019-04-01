@@ -238,6 +238,7 @@
     <Compile Include="Assets\Scripts\HUD\GameHUD.cs" />
     <Compile Include="Assets\Scripts\Level\Characters\Alligator.cs" />
     <Compile Include="Assets\Scripts\Level\Characters\Frog.cs" />
+    <Compile Include="Assets\Scripts\Level\Characters\LadyFrog.cs" />
     <Compile Include="Assets\Scripts\Level\Characters\Player.cs" />
     <Compile Include="Assets\Scripts\Level\Characters\Turtle.cs" />
     <Compile Include="Assets\Scripts\Level\HomeSpot.cs" />

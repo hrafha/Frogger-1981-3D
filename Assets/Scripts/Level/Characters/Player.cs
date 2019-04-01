@@ -4,28 +4,19 @@ using Scripts.Controllers;
 
 namespace Scripts.Level
 {
-    public class Player : MonoBehaviour
+    public class Player : Frog
     {
 
-        [Header("Movement Settings")]
-        [SerializeField] [Range(0.1f, 0.2f)] private float moveDelay;
-
-        private bool isMoving;
-        private bool hitted;
-
-        private Rigidbody rigbd;
         private GameController gameController;
         private LevelController levelController;
         private ScoreController scoreController;
 
-        private Vector3 moveVec;
         private Vector3 startPosition;
 
-        private GameObject riverPlatform;
+        private bool hitted;
 
         private void Start()
         {
-            rigbd = GetComponent<Rigidbody>();
             gameController = FindObjectOfType<GameController>();
             levelController = FindObjectOfType<LevelController>();
             scoreController = FindObjectOfType<ScoreController>();
@@ -37,6 +28,8 @@ namespace Scripts.Level
         {
             if (!isMoving)
                 UpdateMoveVec();
+            else
+                scoreController.CheckScoreLine(this);
 
             if (CanMove() && (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0))
                 StartCoroutine(Move());
@@ -45,7 +38,7 @@ namespace Scripts.Level
                 gameController.GameOver();
         }
 
-        private void UpdateMoveVec()
+        protected override void UpdateMoveVec()
         {
             // Moves prioritizing horizontal 
             if (Input.GetAxisRaw("Horizontal") != 0)
@@ -54,81 +47,21 @@ namespace Scripts.Level
                 moveVec = new Vector3(0, 0, Input.GetAxisRaw("Vertical")) + transform.position;
         }
 
-        private bool CanMove()
+        protected override void CheckOtherCollider(Collider other)
         {
-            return !isMoving && ValidMovement();
-        }
-
-        private bool ValidMovement()
-        {
-            return moveVec.x < 14f
-                && moveVec.x > -14f
-                && moveVec.z > -14.5f
-                && moveVec.z < -0.5f;
-        }
-
-        private IEnumerator Move()
-        {
-            isMoving = true;
-            CheckCollisions();
-            while (transform.position != moveVec)
-            {
-                if (riverPlatform)
-                    moveVec += GetRiverPlatformRigidbody().velocity * Time.fixedDeltaTime;
-                yield return new WaitForFixedUpdate();
-                transform.position = Vector3.MoveTowards(transform.position, moveVec, 0.25f);
-            }
-            yield return new WaitForSeconds(moveDelay);
-            isMoving = false;
-        }
-
-        private void CheckCollisions()
-        {
-            bool collide = false;
-            Collider[] collisions = Physics.OverlapBox(moveVec, transform.localScale / 2f);
-            foreach (Collider collider in collisions)
-            {
-                if (collider.isTrigger)
-                {
-                    collide = true;
-                    CheckOtherCollider(collider);
-                    break;
-                }
-            }
-            if (collide == false)
-                riverPlatform = null;
-        }
-
-        private void CheckOtherCollider(Collider other)
-        {
-            if (other.CompareTag("Platform"))
-            {
-                if (riverPlatform != other.gameObject)
-                    riverPlatform = other.gameObject;
-                rigbd.velocity = GetRiverPlatformRigidbody().velocity;
-            }
             if (other.GetComponent<HomeSpot>())
             {
+                rigbd.velocity = Vector3.zero;
                 StartCoroutine(ResetPosition());
                 if (!other.GetComponent<HomeSpot>().filled)
                 {
-                    rigbd.velocity = Vector3.zero;
                     other.GetComponent<HomeSpot>().FillSpot(true);
                     ScoreController.IncreaseScore(ScoreController.ScoreType.Home);
                     ScoreController.IncreaseScore(ScoreController.ScoreType.Time);
                     levelController.CheckSpots();
                 }
             }
-        }
-
-        private Rigidbody GetRiverPlatformRigidbody()
-        {
-            if (riverPlatform.GetComponentInParent<Rigidbody>())
-                return riverPlatform.GetComponentInParent<Rigidbody>();
-            else if (riverPlatform.GetComponent<Rigidbody>())
-                return riverPlatform.GetComponent<Rigidbody>();
-            else
-                return null;
+            base.CheckOtherCollider(other);
         }
 
         private bool PlayerMovedOutScreen()

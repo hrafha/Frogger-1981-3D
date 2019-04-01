@@ -7,8 +7,8 @@ namespace Scripts.Level
     {
         
         [Header("Submerge Delays")]
-        [SerializeField] private float timeToUp;
-        [SerializeField] private float timeToDown;
+        [SerializeField] private float timeToUp = 0.5f;
+        [SerializeField] private float timeToDown = 3f;
 
         private float timer;
         private float defaultHeight;
@@ -34,7 +34,7 @@ namespace Scripts.Level
                 timeToUp = 0.5f;
             if (timeToDown <= 0)
                 timeToDown = 3f;
-            defaultHeight = transform.position.y;
+            defaultHeight = 0;
             submerseHeight = -0.5f;
         }
 

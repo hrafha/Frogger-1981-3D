@@ -58,8 +58,8 @@ namespace Scripts.Level
                 if (!other.GetComponent<HomeSpot>().filled)
                 {
                     other.GetComponent<HomeSpot>().FillSpot(true);
-                    ScoreController.IncreaseScore(ScoreController.ScoreType.Home);
-                    ScoreController.IncreaseScore(ScoreController.ScoreType.Time);
+                    ScoreController.IncreaseScore(ScoreType.Home);
+                    ScoreController.IncreaseScore(ScoreType.Time);
                     CheckBonus(other);
                     levelController.CheckSpots();
                 }
@@ -77,7 +77,7 @@ namespace Scripts.Level
                 ladyFrog.transform.localScale = Vector3.one - Vector3.up * 0.5f;
                 ladyFrog.transform.parent = other.transform;
                 Destroy(ladyFrog);
-                ScoreController.IncreaseScore(ScoreController.ScoreType.Bonus);
+                ScoreController.IncreaseScore(ScoreType.Bonus);
             }
         }
 
@@ -88,8 +88,7 @@ namespace Scripts.Level
                 yield return new WaitForEndOfFrame();
             transform.position = startPosition;
             gameController.ResetTimer();
-            if (ladyFrog = FindObjectOfType<LadyFrog>())
-                Destroy(ladyFrog.gameObject);
+            DestroyLadyFrog();
             isMoving = true;
             yield return new WaitForSeconds(moveDelay);
             isMoving = false;
@@ -100,6 +99,12 @@ namespace Scripts.Level
         public void SetLadyFrog(LadyFrog ladyFrog)
         {
             this.ladyFrog = ladyFrog;
+        }
+
+        private void DestroyLadyFrog()
+        {
+            if (ladyFrog = FindObjectOfType<LadyFrog>())
+                Destroy(ladyFrog.gameObject);
         }
 
         private void OnTriggerEnter(Collider other)

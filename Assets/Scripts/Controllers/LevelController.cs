@@ -29,14 +29,18 @@ namespace Scripts.Controllers
         private void SetSpotsStates()
         {
             for (int i = 0; i < spots.Length; i++)
+            {
                 spots[i].FillSpot(GameController.homeSpots[i]);
+                if (spots[i].transform.childCount >= 2) // Destroy lady frogs
+                    Destroy(spots[i].transform.GetChild(1).gameObject);
+            }
         }
 
         public void CheckSpots()
         {
             if (AllSpotsAreFilled())
             {
-                ScoreController.IncreaseScore(ScoreController.ScoreType.FiveHome);
+                ScoreController.IncreaseScore(ScoreType.FiveHome);
                 gameController.FinishLevel();
                 SetSpotsStates();
                 // Implement "LoadNewLevel()" here.
@@ -85,7 +89,6 @@ namespace Scripts.Controllers
             LadyFrog ladyFrogSpawned = FindObjectOfType<LadyFrog>();
             Vector3 spawnPosition = RandomPositionOnLine(-5.5f);
             Collider platform = PlatformOnPosition(spawnPosition);
-            Debug.Log(spawnPosition);
             if (!ladyFrogSpawned && platform)
                 Instantiate(ladyFrogPrefab, platform.ClosestPoint(spawnPosition), Quaternion.identity);
             yield return new WaitForSeconds(delay);

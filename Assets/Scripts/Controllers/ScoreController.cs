@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using Scripts.Level;
+using Scripts.HUD;
 
 namespace Scripts.Controllers
 {
@@ -52,12 +53,14 @@ namespace Scripts.Controllers
                 score += scoreTable[(int)scoreType] * (int)FindObjectOfType<GameController>().timeLeft;
             else
                 score += scoreTable[(int)scoreType];
+            GameHUD.Instance.UpdateTexts();
         }
 
         public static void ResetScoreLines()
         {
             for (int i = 0; i < linesReacheds.Length; i++)
                 linesReacheds[i] = false;
+            GameHUD.Instance.UpdateTexts();
         }
 
         public void CheckScoreLine(Player player)
@@ -69,8 +72,6 @@ namespace Scripts.Controllers
                     linesReacheds[i] = true;
                 }
         }
-
-        public enum ScoreType { Step, Home, FiveHome, Time, Bonus }
 
     }
 }

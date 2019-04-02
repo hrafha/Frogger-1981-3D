@@ -7,25 +7,31 @@ namespace Scripts.HUD
     public class GameHUD : MonoBehaviour
     {
 
+        public static GameHUD Instance;
+
+        [Header("Menus")]
         [SerializeField] private GameObject gameOverMenu;
+
+        [Header("InGameHUD")]
         [SerializeField] private Image timer;
         [SerializeField] private Text score;
         [SerializeField] private Text lives;
 
         private GameController gameController;
 
-        public void Start()
+        private void Start()
         {
+            Instance = this;
             gameController = FindObjectOfType<GameController>();
+            UpdateTexts();
         }
 
-        public void Update()
+        private void Update()
         {
-            UpdateTexts();
             UpdateTimerImage();
         }
 
-        private void UpdateTexts()
+        public void UpdateTexts()
         {
             score.text = "Score: " + ScoreController.score.ToString();
             if (gameController.extraFrogs >= 0)

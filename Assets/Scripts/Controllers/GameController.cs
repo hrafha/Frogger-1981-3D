@@ -65,7 +65,8 @@ namespace Scripts.Controllers
         private void EndGame()
         {
             PauseGame(true);
-            FindObjectOfType<GameHUD>().ShowGameOverMenu();
+            GameHUD.Instance.UpdateTexts();
+            GameHUD.Instance.ShowGameOverMenu();
         }
 
         public void RestartLevel()
@@ -73,6 +74,7 @@ namespace Scripts.Controllers
             ResetTimer();
             PauseGame(false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            GameHUD.Instance.UpdateTexts();
         }
 
         public void FinishLevel()

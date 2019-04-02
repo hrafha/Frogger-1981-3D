@@ -69,7 +69,7 @@ namespace Scripts.Level
             StopAllCoroutines();
             player.SetLadyFrog(this);
             transform.position = player.transform.position + Vector3.up * 0.5f;
-            transform.localScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z);
+            transform.localScale = new Vector3(transform.localScale.x, 0.2f, transform.localScale.z);
             transform.parent = player.transform;
             StartCoroutine(ClimbOnPlayer(player));
         }

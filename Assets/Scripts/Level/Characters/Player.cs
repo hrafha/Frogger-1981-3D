@@ -34,7 +34,7 @@ namespace Scripts.Level
             if (CanMove() && (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0))
                 StartCoroutine(Move());
 
-            if (PlayerMovedOutScreen())
+            if (MovedOutScreen())
                 gameController.GameOver();
         }
 
@@ -62,14 +62,6 @@ namespace Scripts.Level
                 }
             }
             base.CheckOtherCollider(other);
-        }
-
-        private bool PlayerMovedOutScreen()
-        {
-            return transform.position.x > 15f
-                || transform.position.x < -15f
-                || transform.position.z < -14.5f
-                || transform.position.z > -0.5f;
         }
 
         public IEnumerator ResetPosition()

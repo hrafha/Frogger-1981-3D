@@ -7,7 +7,11 @@ namespace Scripts.Controllers
     public class LevelController : MonoBehaviour
     {
 
+        [Header("HomeSpot Settings")]
         [SerializeField] private GameObject[] spotSurprises;
+
+        [Header("LadyFrog Settings")]
+        [SerializeField] private GameObject ladyFrogPrefab;
 
         private GameController gameController;
         private HomeSpot[] spots;
@@ -19,6 +23,7 @@ namespace Scripts.Controllers
 
             SetSpotsStates();
             StartCoroutine(HomeSpotSurprise(6));
+            StartCoroutine(LadyFrogSpawn(5));
         }
 
         private void SetSpotsStates()
@@ -73,6 +78,35 @@ namespace Scripts.Controllers
             while (randomSpot.filled)
                 randomSpot = spots[Random.Range(0, spots.Length)];
             return randomSpot;
+        }
+
+        private IEnumerator LadyFrogSpawn(float delay)
+        {
+            LadyFrog ladyFrogSpawned = FindObjectOfType<LadyFrog>();
+            Vector3 spawnPosition = RandomPositionOnLine(-5.5f);
+            Collider platform = PlatformOnPosition(spawnPosition);
+            Debug.Log(spawnPosition);
+            if (!ladyFrogSpawned && platform)
+                Instantiate(ladyFrogPrefab, platform.ClosestPoint(spawnPosition), Quaternion.identity);
+            yield return new WaitForSeconds(delay);
+            StartCoroutine(LadyFrogSpawn(delay));
+        }
+
+        private Vector3 RandomPositionOnLine(float line)
+        {
+            // Line == Z stage position
+            return new Vector3(Random.Range(-14, 14), 1, line);
+        }
+
+        private Collider PlatformOnPosition(Vector3 position)
+        {
+            Collider[] collisions = Physics.OverlapBox(position, ladyFrogPrefab.transform.localScale / 2f);
+            foreach (Collider collider in collisions)
+            {
+                if (collider.isTrigger && collider.CompareTag("Platform"))
+                    return collider;
+            }
+            return null;
         }
 
     }

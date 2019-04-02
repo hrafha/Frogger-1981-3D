@@ -15,7 +15,7 @@ namespace Scripts.Level
             rigbd = GetComponent<Rigidbody>();
         }
 
-        public void Update()
+        public void FixedUpdate()
         {
             rigbd.velocity = Vector3.right * baseSpeed;
         }

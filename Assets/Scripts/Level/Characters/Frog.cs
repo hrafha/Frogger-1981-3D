@@ -87,5 +87,13 @@ namespace Scripts.Level
                 return null;
         }
 
+        protected bool MovedOutScreen()
+        {
+            return transform.position.x > 15f
+                || transform.position.x < -15f
+                || transform.position.z < -14.5f
+                || transform.position.z > -0.5f;
+        }
+
     }
 }

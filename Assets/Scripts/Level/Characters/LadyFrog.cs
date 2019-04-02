@@ -16,6 +16,12 @@ namespace Scripts.Level
             StartCoroutine(MovementBehavior());
         }
 
+        private void Update()
+        {
+            if (MovedOutScreen())
+                Destroy(gameObject);
+        }
+
         protected override void UpdateMoveVec()
         {
             bool toRight = Random.Range(0, 2) == 1;
@@ -29,7 +35,10 @@ namespace Scripts.Level
         {
             base.CheckOtherCollider(other);
             if (other.CompareTag("Platform"))
+            {
                 moveVec = other.ClosestPoint(moveVec);
+                moveVec = FitInPlatform(other);
+            }
         }
 
         private IEnumerator MovementBehavior()
@@ -41,6 +50,18 @@ namespace Scripts.Level
                 moveVec = transform.position;
             yield return new WaitUntil(CanMove);
             StartCoroutine(MovementBehavior());
+        }
+
+        private Vector3 FitInPlatform(Collider platform)
+        {
+            if (!platform.bounds.Contains(moveVec))
+            {
+                if (moveVec.x > platform.transform.position.x)
+                    return moveVec + new Vector3(transform.localScale.x - moveVec.x, 0, 0);
+                else if (moveVec.x < platform.transform.position.x)
+                    return moveVec + new Vector3(transform.localScale.x + moveVec.x, 0, 0);
+            }
+            return moveVec;
         }
 
     }

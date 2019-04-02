@@ -13,6 +13,8 @@ namespace Scripts.Level
 
         private Vector3 startPosition;
 
+        private LadyFrog ladyFrog;
+
         private bool hitted;
 
         private void Start()
@@ -58,10 +60,25 @@ namespace Scripts.Level
                     other.GetComponent<HomeSpot>().FillSpot(true);
                     ScoreController.IncreaseScore(ScoreController.ScoreType.Home);
                     ScoreController.IncreaseScore(ScoreController.ScoreType.Time);
+                    CheckBonus(other);
                     levelController.CheckSpots();
                 }
             }
             base.CheckOtherCollider(other);
+        }
+
+        private void CheckBonus(Collider other)
+        {
+            if (ladyFrog)
+            {
+                ladyFrog.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                ladyFrog.transform.parent = null;
+                ladyFrog.transform.position = other.transform.position + Vector3.up * 0.5f;
+                ladyFrog.transform.localScale = Vector3.one - Vector3.up * 0.5f;
+                ladyFrog.transform.parent = other.transform;
+                Destroy(ladyFrog);
+                ScoreController.IncreaseScore(ScoreController.ScoreType.Bonus);
+            }
         }
 
         public IEnumerator ResetPosition()
@@ -71,11 +88,18 @@ namespace Scripts.Level
                 yield return new WaitForEndOfFrame();
             transform.position = startPosition;
             gameController.ResetTimer();
+            if (ladyFrog = FindObjectOfType<LadyFrog>())
+                Destroy(ladyFrog.gameObject);
             isMoving = true;
             yield return new WaitForSeconds(moveDelay);
             isMoving = false;
             hitted = false;
             ScoreController.ResetScoreLines();
+        }
+
+        public void SetLadyFrog(LadyFrog ladyFrog)
+        {
+            this.ladyFrog = ladyFrog;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -85,6 +109,8 @@ namespace Scripts.Level
                 hitted = true;
                 gameController.GameOver();
             }
+            if (other.GetComponent<LadyFrog>())
+                other.GetComponent<LadyFrog>().OnPlayerCollide(this);
         }
 
     }

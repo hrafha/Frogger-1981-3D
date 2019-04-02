@@ -13,8 +13,8 @@ namespace Scripts.Controllers
         [SerializeField] private int linesAmount;
 
         [Header("Score Table")]
-        [Tooltip("0 - Step, 1 - Home, 2 - FiveHome, 3 - Time")]
-        [SerializeField] private int[] scoreValues = new int[4];
+        [Tooltip("0 - Step, 1 - Home, 2 - FiveHome, 3 - Time, 4 - Bonus")]
+        [SerializeField] private int[] scoreValues = new int[5];
 
         private float[] linesPositions;
 
@@ -70,7 +70,7 @@ namespace Scripts.Controllers
                 }
         }
 
-        public enum ScoreType { Step, Home, FiveHome, Time }
+        public enum ScoreType { Step, Home, FiveHome, Time, Bonus }
 
     }
 }

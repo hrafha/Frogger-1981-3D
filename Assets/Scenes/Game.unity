@@ -1939,7 +1939,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstLinePos: -12.5
   linesAmount: 11
-  scoreValues: 0a00000032000000e80300000a000000
+  scoreValues: 0a00000032000000e80300000a000000c8000000
 --- !u!1 &1256893406
 GameObject:
   m_ObjectHideFlags: 0
@@ -2456,11 +2456,6 @@ Prefab:
     - target: {fileID: 4511536456326164, guid: dc25c24c6bef44347a5f24b3a7569615, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 54679631313806920, guid: dc25c24c6bef44347a5f24b3a7569615,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dc25c24c6bef44347a5f24b3a7569615, type: 2}

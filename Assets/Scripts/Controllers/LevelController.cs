@@ -95,7 +95,7 @@ namespace Scripts.Controllers
         private Vector3 RandomPositionOnLine(float line)
         {
             // Line == Z stage position
-            return new Vector3(Random.Range(-14, 14), 1, line);
+            return new Vector3(Random.Range(-13, 13), 1, line);
         }
 
         private Collider PlatformOnPosition(Vector3 position)
